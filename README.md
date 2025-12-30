@@ -1,5 +1,5 @@
-Customer Analytics Pipeline
-Overview
+# Customer Analytics Pipeline
+# Overview
 
 This project provides a comprehensive pipeline for customer analytics using transactional data. It enables businesses to understand customer behavior, segment customers, and visualize key metrics for decision-making.
 The pipeline includes:
@@ -24,7 +24,7 @@ Installation
 clone the repository git clone https://github.com/Isabirye-alex/data_science.git
 # cd data_science
 
-#Usage
+# Usage
 Run the pipeline
 from pipeline_class import DataPipeline
 import matplotlib.pyplot as plt
@@ -57,7 +57,7 @@ Retention heatmaps
 Pareto curves
 Returns figure objects for saving and customization
 
-Notes
+# Notes
 The pipeline works best with a transactional dataset containing columns like:
 InvoiceNo, StockCode, Description, Quantity, InvoiceDate, UnitPrice, CustomerID, Country.
 
@@ -66,6 +66,6 @@ Use .dt.to_period('M') for monthly grouping to avoid unnecessary zero timestamps
 Figures can be saved in any folder by specifying the path in fig.savefig('folder/filename.jpg').
 
 
-License
+# License
 
 This project is released under the MIT License.
