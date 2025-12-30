@@ -18,8 +18,3 @@ pipeline = DataPipeline('online_retail.csv')
 #   - Generate Pareto analysis
 #   - Create retention heatmaps and Pareto plots
 pipeline.run()
-
-# Step 3: Display all generated plots
-# Since the plotting functions in DataVisualization now return figures
-# this ensures any plots are rendered on screen
-plt.show()

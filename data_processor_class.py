@@ -111,7 +111,6 @@ class DataProcessor:
         self.df['YearMonth'] = (
             self.df['InvoiceDate']
             .dt.to_period('M')
-            .dt.to_timestamp()
         )
 
         return self.df

@@ -27,7 +27,7 @@ class DataVisualization:
             Axes object of the heatmap.
         """
 
-        fig, ax = plt.subplots(figsize=(15, 8))
+        fig, ax = plt.subplots(figsize=(12, 5))
         sns.heatmap(
             retention_df,
             annot=True,       # Show numeric values
@@ -38,7 +38,7 @@ class DataVisualization:
         ax.set_title('Customer Retention Heatmap Over Time')
         ax.set_xlabel('Cohort Index (Months Since First Purchase)')
         ax.set_ylabel('Cohort Month')
-
+        fig.savefig('figures/retention_analysis.jpg',dpi=300)
         return fig, ax
 
     @staticmethod
@@ -60,7 +60,7 @@ class DataVisualization:
             Axes object of the Pareto curve.
         """
 
-        fig, ax = plt.subplots(figsize=(10, 5))
+        fig, ax = plt.subplots(figsize=(20, 8))
 
         # Plot cumulative customer % vs cumulative revenue %
         ax.plot(
@@ -79,6 +79,10 @@ class DataVisualization:
         ax.set_title('Pareto Analysis of Customers')
         ax.set_xlabel('Cumulative Customer Percentage')
         ax.set_ylabel('Cumulative Revenue Percentage')
+        ax.set_xlim(left=0)   # x-axis starts at 0
+        ax.set_ylim(bottom=0) # y-axis starts at 0
         ax.legend()
+        fig.tight_layout()
+        fig.savefig('figures/pareto_curve.jpg', dpi=300)
 
         return fig, ax
