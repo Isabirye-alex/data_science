@@ -5,7 +5,7 @@ from pipeline_class import DataPipeline
 import matplotlib.pyplot as plt
 
 # Step 1: Initialize the data pipeline with the CSV dataset
-# 'online_retail.csv' should be the path to your raw dataset
+# 'online_retail.csv' As the path to my dataset
 pipeline = DataPipeline('online_retail.csv')
 
 # Step 2: Run the full data processing and analysis pipeline

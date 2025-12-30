@@ -31,7 +31,7 @@ class DataPipeline:
         Constructor: loads the dataset from a CSV file.
 
         Parameters
-        ----------
+        
         path : str
             Path to the CSV dataset file.
         """
@@ -42,7 +42,7 @@ class DataPipeline:
         Executes the full data analytics pipeline step by step.
 
         Returns
-        -------
+        
         None
         """
         # Step 1: Clean the dataset using the DataProcessor class
@@ -71,9 +71,6 @@ class DataPipeline:
 
         # Step 9: Plot Pareto curve and get the figure/axes objects
         pareto_curve = data_visualizer.plot_pareto(pareto_df)
-
-        # Step 10: Compute the proportion of customers contributing to 80% of revenue
-        top_customers_ratio = pareto_df[pareto_df['CumRevenuePct'] <= 0.8].shape[0] / len(pareto_df)
 
         # Step 11: Plot customer retention heatmap and get figure/axes objects
         retention_heatmap = data_visualizer.plot_retention(customer_retention_df)
