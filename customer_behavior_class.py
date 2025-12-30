@@ -267,7 +267,7 @@ class CustomerIntelligence:
 
         customers_by_country = (
             self.df.groupby('Country', observed=False)
-            .agg({'CustomerID': 'count'})
+            .agg({'CustomerID': 'nunique'})
             .reset_index()
             .rename(columns={'CustomerID': 'TotalCustomers'})
             .sort_values(by='TotalCustomers', ascending=False)
@@ -295,6 +295,18 @@ class CustomerIntelligence:
             customers_by_country['TotalRevenue'] /
             customers_by_country['TotalRevenue'].sum()
         ) * 100
-
+        # customers_by_country['AverageRevenuePerCust'] = customers_by_country['TotalRevenue'] / customers_by_country['TotalCustomers']
         self.customer_country = customers_by_country
-        return customers_by_country
+
+        customer_grouping = self.df.groupby('Country',observed=False)['InvoiceNo'].nunique().reset_index().rename(columns={'InvoiceNo':'TotalInvoices'}).sort_values(by='TotalInvoices', ascending=False)
+        customers_by_country = pd.merge(customers_by_country, customer_grouping, on='Country')
+        customers_by_country['AVIPC'] = customers_by_country['TotalInvoices']/customers_by_country['TotalCustomers']
+        customers_by_country['ARPI'] = customers_by_country['TotalRevenue']/customers_by_country['TotalInvoices']
+        # customers_by_country = customers_by_country.sort_values(by='ARPI', ascending=False)
+        customers_by_country['ARPC'] = customers_by_country['TotalRevenue'] / customers_by_country['TotalCustomers']
+    
+        return {
+            'customers_by_country': customers_by_country,
+            'customer_grouping': customer_grouping
+
+        }

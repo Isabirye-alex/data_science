@@ -80,6 +80,16 @@ class DataPipeline:
 
         # Step 13: Perform Pareto analysis by country
         customers_by_country = customer_intelligence.pareto_analysis_by_country()
-
+        customers_df = customers_by_country['customers_by_country']
+        customer_grouping = customers_by_country['customer_grouping']
         # Step 14: Print the top countries by number of customers and revenue
-        print(customers_by_country.head())
+        return {
+        'cleaned_dataset': cleaned_dataset,
+        'rfm_table': customer_rfm,
+        'retention_df': customer_retention_df,
+        'clv_table': clv_table,
+        'pareto_df': pareto_df,
+        'grouped_df': grouped_df,
+        'country_df': customers_df,
+        'customer_grouping': customer_grouping
+        }

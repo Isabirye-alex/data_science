@@ -17,4 +17,8 @@ pipeline = DataPipeline('online_retail.csv')
 #   - Calculate CLV
 #   - Generate Pareto analysis
 #   - Create retention heatmaps and Pareto plots
-pipeline.run()
+results = pipeline.run()
+country_df = results['country_df']
+customer_grouping = results['customer_grouping']
+print(country_df)
+# print(customer_grouping.head())
