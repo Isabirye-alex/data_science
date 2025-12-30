@@ -1,25 +1,84 @@
-
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 
 class DataVisualization:
+    """
+    Handles visualization of customer analytics results, including:
+    - Retention heatmaps
+    - Pareto (80/20) customer-revenue analysis
+    """
+
     @staticmethod
     def plot_retention(retention_df):
-        plt.figure(figsize=(15,8))
-        sns.heatmap(retention_df, annot=True, cmap='viridis', fmt='.0%')
-        plt.title('Customer retention heatmap over time')
-        plt.show()
+        """
+        Creates a retention heatmap to visualize customer retention over time.
+
+        Parameters
+        ----------
+        retention_df : pandas.DataFrame
+            Cohort retention matrix where rows are cohorts and columns are periods.
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            Figure object of the retention heatmap.
+        ax : matplotlib.axes.Axes
+            Axes object of the heatmap.
+        """
+
+        fig, ax = plt.subplots(figsize=(15, 8))
+        sns.heatmap(
+            retention_df,
+            annot=True,       # Show numeric values
+            cmap='viridis',   # Color map
+            fmt='.0%',        # Format as percentages
+            ax=ax
+        )
+        ax.set_title('Customer Retention Heatmap Over Time')
+        ax.set_xlabel('Cohort Index (Months Since First Purchase)')
+        ax.set_ylabel('Cohort Month')
+
+        return fig, ax
 
     @staticmethod
     def plot_pareto(pareto_df):
-        plt.figure(figsize=(10,5))
-        plt.plot(pareto_df['CumCustomerPct'], pareto_df['CumRevenuePct'])
-        plt.axhline(0.8, linestyle='--')
-        plt.axvline(pareto_df[pareto_df['CumRevenuePct'] <= 0.8].shape[0]/len(pareto_df), linestyle='--')
-        plt.title('Pareto Analysis')
-        plt.xlabel('Cumulative Customer Percentage')
-        plt.ylabel('Cumulative Revenue Percentage')
-        plt.show()
+        """
+        Creates a Pareto curve to visualize the cumulative contribution
+        of customers to total revenue.
 
+        Parameters
+        ----------
+        pareto_df : pandas.DataFrame
+            DataFrame containing cumulative revenue and cumulative customer percentage.
+
+        Returns
+        -------
+        fig : matplotlib.figure.Figure
+            Figure object of the Pareto curve.
+        ax : matplotlib.axes.Axes
+            Axes object of the Pareto curve.
+        """
+
+        fig, ax = plt.subplots(figsize=(10, 5))
+
+        # Plot cumulative customer % vs cumulative revenue %
+        ax.plot(
+            pareto_df['CumCustomerPct'],
+            pareto_df['CumRevenuePct'],
+            marker='o'
+        )
+
+        # Highlight 80% revenue line
+        ax.axhline(0.8, color='red', linestyle='--', label='80% Revenue')
+
+        # Highlight the corresponding customer percentage
+        x_cutoff = pareto_df[pareto_df['CumRevenuePct'] <= 0.8].shape[0] / len(pareto_df)
+        ax.axvline(x_cutoff, color='blue', linestyle='--', label='Top Customers')
+
+        ax.set_title('Pareto Analysis of Customers')
+        ax.set_xlabel('Cumulative Customer Percentage')
+        ax.set_ylabel('Cumulative Revenue Percentage')
+        ax.legend()
+
+        return fig, ax
